@@ -12,3 +12,7 @@ def step_impl_load_website(context):
 def step_impl_goto_page(context, page):
     base.goto_page(page)
 
+
+@given(u'I close browser')
+def step_impl_close_browser(context):
+    base.close_browser()

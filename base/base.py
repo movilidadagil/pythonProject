@@ -25,7 +25,7 @@ class Base:
         elif str(settings['browser']).lower() == "chrome":
             options = webdriver.ChromeOptions()
             options.add_argument("--start-fullscreen")
-            self.driver = webdriver.Chrome(chrome_options=options,executable_path='./le q21 "   resources/binaries/chromedriver')
+            self.driver = webdriver.Chrome(chrome_options=options)
         else:
             self.driver = webdriver.Firefox()
 
@@ -37,10 +37,16 @@ class Base:
 
     def goto_page(self, page):
         self.driver.get(urljoin(settings['url'], page.lower()))
-    def verify_component_exists(self, country):
 
-        assert country in self.driver.find_element_by_xpath('//body/div[1]/div[1]/div[1]/a/div[2]').text, \
-            "Component {} not found on page".format(country)
+    def verify_component_exists(self, component, order):
+               print(self.driver.find_elements_by_xpath('//body/div[1]/div[1]/div[1]/a/div[2]')[int(order)].text)
+               component = component.split(' ')[1].replace('"', "")
+               assert component in self.driver.find_elements_by_xpath('//body/div[1]/div[1]/div[1]/a/div[2]')[int(order)].text, \
+                "Component {} not found on page".format(component)
 
+
+
+    def close_browser(self):
+        self.driver.quit()
 
 base = Base.get_instance()

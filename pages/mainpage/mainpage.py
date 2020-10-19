@@ -25,3 +25,6 @@ class MainPage():
         for item in countries:
             if country == item.text:
                 item.click()
+
+
+mainpage = MainPage.get_instance()
